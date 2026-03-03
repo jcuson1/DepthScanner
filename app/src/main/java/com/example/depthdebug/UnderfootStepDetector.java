@@ -22,7 +22,6 @@ public final class UnderfootStepDetector {
     // Перепад вниз: край лестницы/яма
     private static final float DELTA_DOWN_M = 0.30f;
 
-    // Для STEP_DOWN обязательна нормальная quality
     private static final float MIN_QUALITY_FOR_DOWN = 0.10f;
 
     private final ScoreIntegrator upScore   = new ScoreIntegrator(20, 8, 3, 2, 1);
@@ -111,7 +110,7 @@ public final class UnderfootStepDetector {
         // Доп. признак для down: низ сильно “дырявый”
         boolean stepDownUnknown = (g.quality >= MIN_QUALITY_FOR_DOWN) && (uRow[kBottom] > 0.55f);
 
-        boolean stepDownNow = (g.quality >= MIN_QUALITY_FOR_DOWN) && (stepDownGeom || stepDownUnknown);
+        boolean stepDownNow = (g.quality >= MIN_QUALITY_FOR_DOWN) && stepDownGeom;
 
         boolean upOn = upScore.update(stepUpNow);
         boolean downOn = downScore.update(stepDownNow);
